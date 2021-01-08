@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView,StyleSheet,Image, ActivityIndicator,FlatList, RefreshControl} from 'react-native';
+import { View, Text, ScrollView,StyleSheet,Image, ActivityIndicator,FlatList, RefreshControl,SafeAreaView} from 'react-native';
 import Music from './Music'
+import { useNavigation } from '@react-navigation/native';
 const ranDom = (tracks) =>{
     for (let i = tracks.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -8,13 +9,13 @@ const ranDom = (tracks) =>{
     }
     return tracks
 }
-const Home = () =>  {
+const Home = ({}) =>  {
 
     //https://gist.githubusercontent.com/daotruyen/f99fa416f5816adcb27736fb44203ca6/raw/18021d95393c1a921926bfbe35521899b0f39fed/music.json
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading ] = useState(true);
     const [refreshing,setRefreshing] = useState(false);
-    
+    const navigation = useNavigation();
     useEffect(()=>{   
         console.log('4')
         callApi()
@@ -52,15 +53,18 @@ const Home = () =>  {
         )
     }
     return (
+        <SafeAreaView>
     <View>
         <Text style={styles.header}>List music</Text>
           <FlatList
             data={tracks}
             renderItem={({item})=>( 
                 <Music
+                    
                     title={item.title.s}
                     poster={item.poster.s}
                     description={item.description.s}
+                    //navigation={navigation}
                 />
                 )}
             keyExtractor={item=>(item.id.s)}
@@ -74,7 +78,7 @@ const Home = () =>  {
           
     
     </View>
-      
+      </SafeAreaView>
     );
   
 }

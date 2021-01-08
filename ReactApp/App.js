@@ -10,20 +10,28 @@ import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  
-  Text,
   StatusBar,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
 import Home from './Component/Home';
-import Music from './Component/Music'
+import DetailMusic from './Component/DetailMusic'
 const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Home/>
-      </SafeAreaView>
+      
+      <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Details" component={DetailMusic}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+      
     </>
   );
 };

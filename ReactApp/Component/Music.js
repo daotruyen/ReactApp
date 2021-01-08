@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-
+import { useNavigation } from '@react-navigation/native';
 const Music = (props) => {
+    //console.log(props)
+    const navigation = useNavigation();
     return (
-        <View style={styles.items}> 
+        <View style={styles.items}
+        onStartShouldSetResponder={() => navigation.navigate('Details',props)}
+        > 
             <View style={styles.poster}>
                 <Image
                     style={styles.img}
